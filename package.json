@@ -1,0 +1,31 @@
+{
+  "name": "phpmysqladminpanel",
+  "version": "1.0.0",
+  "description": "Admin panel with php functionality and connected through Ajax",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbinamira/phpmysqladminpanel.git"
+  },
+  "keywords": [
+    "php",
+    "mysql",
+    "ajax",
+    "admin-panel"
+  ],
+  "author": "Vince Binamira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vbinamira/phpmysqladminpanel/issues"
+  },
+  "homepage": "https://github.com/vbinamira/phpmysqladminpanel#readme",
+  "devDependencies": {
+    "admin-lte": "^2.3.11",
+    "bootstrap-validator": "^0.11.9",
+    "ckeditor": "^4.6.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}

@@ -1,0 +1,11 @@
+#checklist-success-label {
+	padding: 10px;
+}
+
+#checklist-failed-label {
+	padding: 10px;
+}
+.btn-orange {
+	background-color: #ff6815;
+	color: #fff;
+}
