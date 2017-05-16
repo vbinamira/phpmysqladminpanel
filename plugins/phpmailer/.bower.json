@@ -1,0 +1,15 @@
+{
+  "name": "phpmailer",
+  "homepage": "https://github.com/PHPMailer/PHPMailer",
+  "version": "5.2.22",
+  "_release": "5.2.22",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.2.22",
+    "commit": "b18cb98131bd83103ccb26a888fdfe3177b8a663"
+  },
+  "_source": "https://github.com/PHPMailer/PHPMailer.git",
+  "_target": "^5.2.22",
+  "_originalSource": "phpmailer",
+  "_direct": true
+}
