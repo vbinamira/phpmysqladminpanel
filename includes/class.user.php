@@ -815,7 +815,7 @@ class USER
   // CONFIRMATION SIGNUP EMAIL
   function send_mail($email,$message,$subject)
   {      
-    require_once($_SERVER['DOCUMENT_ROOT'].'/plugins/phpmailer/PHPMailerAutoload.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/bower_components/phpmailer/PHPMailerAutoload.php');
     $mail = new PHPMailer(); // NEW MAILER CHANGE HOST, PORT ONCE IN PROD
     $mail->isSMTP(); 
     $mail->SMTPDebug = 0;

@@ -1,0 +1,20 @@
+{
+  "name": "phpmysqladminpanel",
+  "description": "Admin panel with php functionality and connected through Ajax",
+  "main": "index.js",
+  "authors": [
+    "Vince Binamira"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "php",
+    "mysql",
+    "ajax",
+    "admin-panel"
+  ],
+  "homepage": "https://github.com/vbinamira/phpmysqladminpanel",
+  "private": true,
+  "devDependencies": {
+    "phpmailer": "^5.2.23"
+  }
+}
