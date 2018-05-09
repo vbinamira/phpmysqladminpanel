@@ -1,6 +1,9 @@
 //GLOBAL VARIABLES
 var cmpgnid = $('#cmpgnid').val();
-// CREATE CAMPAIGN
+//====================
+// CREATE 
+// ===================
+//=== NEW CAMPAIGN ==//
 $('#btn-create-cmpgn').click(function(event) {
 	var fromname = $('#campaign-from').val();
 	var replyto = $('#campaign-reply').val();
@@ -28,20 +31,51 @@ $('#btn-create-cmpgn').click(function(event) {
 		setTimeout(function () { location.reload(true); }, 1000);
 	});
 });
-// PREVIEW EDITED CAMPAIGN
-$('#btn-preview-content').click(function(event) {
-	var htmlcode = CKEDITOR.instances.editorbrett.getData();
-	$('#cmpgn-preview').html(htmlcode);
-	if(htmlcode=="") 
-	{
-		$('#cmpgn-edit-empty').removeClass('hidden');
-	}
-	else
-	{
-		$('#cmpgn-edit-empty').addClass('hidden');
-	}
+//==== NEW CONTACT ===//
+$('#create_new_contact').click(function(event) {
+	var test = $('#create_subscriber_form').serialize();
+	$.ajax({
+		url: '../includes/create-contact',
+		type: 'POST',
+		data: test,
+	})
+	.done(function() {
+		$('#contact-add-success').removeClass('hidden');
+	})
+	.fail(function() {
+		$('#contact-add-failed').removeClass('hidden');
+	})
+	.always(function() {
+		// setTimeout(function () { location.replace('contacts.php'); }, 1000);
+	});	
 });
-// EDIT CAMPAIGN
+//== SCHEDULE CAMPAIGN ==//
+$('#btn-cmpgn-sched').click(function(event) {
+	var datetime = $('#cmpgn-time').val();
+	var scheduletime = moment(new Date(datetime)).utc().format();
+	$.ajax({
+		url: '../includes/schedule-campaign',
+		type: 'POST',
+		data: {
+			cmpgnid : cmpgnid,
+			scheduletime: scheduletime,
+		}
+	})
+	.done(function(data) {
+		$('#cmpgn-sched-success').removeClass('hidden');
+	})
+	.fail(function() {
+		$('#cmpgn-sched-failed').removeClass('hidden');
+	})
+	.always(function() {
+		setTimeout(function () { location.replace('email-templates.php'); }, 1000);
+		$('#cmpgn-sched-msg').addClass('hidden');
+	});
+});
+//==================
+// EDIT
+//==================
+//== EDIT CONTENT ==//
 $('#btn-edit-content').click(function(event) {
 	// GET RAW HTML
 	var htmlraw = CKEDITOR.instances.editorbrett.getData();
@@ -73,7 +107,29 @@ $('#btn-edit-content').click(function(event) {
 		});
 	}
 });
-// CAMPAIGN STATUS
+//== EDIT CONTACT ==//
+$('#edit_contact').click(function(event) {
+	var test = $('#edit_subscriber_form').serialize();
+	console.log(test);
+	$.ajax({
+		url: '../includes/edit-contact',
+		type: 'POST',
+		data: test,
+	})
+	.done(function() {
+		$('#contact-edit-success').removeClass('hidden');
+	})
+	.fail(function() {
+		$('#contact-edit-failed').removeClass('hidden');
+	})
+	.always(function() {
+		// setTimeout(function () { location.replace('contacts.php'); }, 1000);
+	});	
+});
+// ==================
+// 	GET
+// ==================
+//== CAMPAIGN STATUS ==//
 $('#check-list').click(function(event) {
 	$.ajax({
 		url: '../includes/get-checklist',
@@ -104,6 +160,45 @@ $('#check-list').click(function(event) {
 		$('#check-list').addClass('hidden');
 	});
 });
+//========================
+//	VALIDATION
+//========================
+// CONTACT FORM VALIDATION
+$('#create_subscriber_form').bootstrapValidator({
+    framework: 'bootstrap',
+    /**
+     * Validators and corresponding messages
+     */
+    fields: {
+        last_name: {
+            validators: {
+                notEmpty: {message: 'Please supply a last name'},
+                regexp: {
+                    regexp: /^[a-z\s]+$/i,
+                    message: 'Please use alphabetical characters and spaces only'
+                }
+            }
+        },
+        first_name: {
+            validators: {
+                notEmpty: {message: 'Please supply a first name'},
+                regexp: {
+                    regexp: /^[a-z\s]+$/i,
+                    message: 'Please use alphabetical characters and spaces only'
+                }
+            }
+        },
+        email: {
+            validators: {
+                notEmpty: {message: 'Please supply an email address'},
+                emailAddress: {message: 'This value is not valid'}
+            }
+        }
+    }
+});
+//======================
+//	MESSAGES
+//======================
 //SEND TEST ADD MESSAGE
 $('#send-test-btn').click(function(event) {
 	var testmail = $('#send-test-email').val();
@@ -146,96 +241,19 @@ $('#cmpgn-sched-btn').click(function(event) {
 	var warning_msg =  "<p id='sched-msg'> Do you want to schedule Campaign on <b>" + datetime + "</b>?</p>";
 	$(warning_msg).appendTo('#cmpgn-sched-msg');
 });
-// SCHEDULE CAMPAIGN
-$('#btn-cmpgn-sched').click(function(event) {
-	var datetime = $('#cmpgn-time').val();
-	var scheduletime = moment(new Date(datetime)).utc().format();
-	$.ajax({
-		url: '../includes/schedule-campaign',
-		type: 'POST',
-		data: {
-			cmpgnid : cmpgnid,
-			scheduletime: scheduletime,
-		}
-	})
-	.done(function(data) {
-		$('#cmpgn-sched-success').removeClass('hidden');
-	})
-	.fail(function() {
-		$('#cmpgn-sched-failed').removeClass('hidden');
-	})
-	.always(function() {
-		setTimeout(function () { location.replace('email-templates.php'); }, 1000);
-		$('#cmpgn-sched-msg').addClass('hidden');
-	});
-});
-// CONTACT FORM VALIDATION
-$('#create_subscriber_form').bootstrapValidator({
-    framework: 'bootstrap',
-    /**
-     * Validators and corresponding messages
-     */
-    fields: {
-        last_name: {
-            validators: {
-                notEmpty: {message: 'Please supply a last name'},
-                regexp: {
-                    regexp: /^[a-z\s]+$/i,
-                    message: 'Please use alphabetical characters and spaces only'
-                }
-            }
-        },
-        first_name: {
-            validators: {
-                notEmpty: {message: 'Please supply a first name'},
-                regexp: {
-                    regexp: /^[a-z\s]+$/i,
-                    message: 'Please use alphabetical characters and spaces only'
-                }
-            }
-        },
-        email: {
-            validators: {
-                notEmpty: {message: 'Please supply an email address'},
-                emailAddress: {message: 'This value is not valid'}
-            }
-        }
-    }
-});
-// CREATE A NEW CONTACT
-$('#create_new_contact').click(function(event) {
-	var test = $('#create_subscriber_form').serialize();
-	$.ajax({
-		url: '../includes/create-contact',
-		type: 'POST',
-		data: test,
-	})
-	.done(function() {
-		$('#contact-add-success').removeClass('hidden');
-	})
-	.fail(function() {
-		$('#contact-add-failed').removeClass('hidden');
-	})
-	.always(function() {
-		// setTimeout(function () { location.replace('contacts.php'); }, 1000);
-	});	
-});
-// EDIT CONTACT
-$('#edit_contact').click(function(event) {
-	var test = $('#edit_subscriber_form').serialize();
-	console.log(test);
-	$.ajax({
-		url: '../includes/edit-contact',
-		type: 'POST',
-		data: test,
-	})
-	.done(function() {
-		$('#contact-edit-success').removeClass('hidden');
-	})
-	.fail(function() {
-		$('#contact-edit-failed').removeClass('hidden');
-	})
-	.always(function() {
-		// setTimeout(function () { location.replace('contacts.php'); }, 1000);
-	});	
+//========================
+//	MISCELLANEOUS
+//========================
+//== PREVIEW CAMPAIGN ==//
+$('#btn-preview-content').click(function(event) {
+	var htmlcode = CKEDITOR.instances.editorbrett.getData();
+	$('#cmpgn-preview').html(htmlcode);
+	if(htmlcode=="") 
+	{
+		$('#cmpgn-edit-empty').removeClass('hidden');
+	}
+	else
+	{
+		$('#cmpgn-edit-empty').addClass('hidden');
+	}
 });

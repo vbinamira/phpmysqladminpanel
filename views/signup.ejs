@@ -1,12 +1,9 @@
-<?php
-include 'includes/login.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>AdminLTE 2 | Registration Page</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -27,51 +24,71 @@ include 'includes/login.php';
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="/"><b>Admin</b>LTE</a>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="index.php"><b>Admin</b>LTE</a>
   </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
-    <?php if(isset($msg)) { echo $msg;} ?>
-    <!-- messages show here -->
-    <form method="post">
+  <div class="register-box-body">
+    <p class="login-box-msg">Sign Up/ Register</p>
+    <div class='alert alert-warning hidden' id="email-duplicate">
+      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; This email already exists
+    </div>
+    <div class='alert alert-error hidden' id="pass-no-match">
+      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Password Doesn't Match
+    </div>
+    <div class='alert alert-success hidden' id="user-registered">
+      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; User Successfully Registered
+    </div>      
+    <form method="post" action="/signup" id="registrationform">
       <div class="form-group has-feedback">
-        <!-- php gets data from name of form -->
-        <input name="email" id="email" type="email" class="form-control" placeholder="Email">
+        <input name="first_name" type="text" class="form-control" id="first_name" placeholder="First Name" required>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Last Name" required>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input name="email" id="email" type="email" class="form-control" placeholder="Email" required>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <select class="form-control" id="access-level">
+          <option selected="Choose Access Level">Choose Access Level</option>
+        </select>
       </div>
       <div class="form-group has-feedback">
         <input name="password" id="password" type="password" class="form-control" placeholder="Password" >
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+      <div class="form-group has-feedback">
+        <input name="confirmpassword"  id="confirmpassword" type="password" class="form-control" placeholder="Retype password">
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+      </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox"> I agree to the <a href="#">terms</a>
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button name="submit" id="submit" type="submit"  class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button name="submit" type="submit" class="btn btn-primary btn-block btn-flat" id="register">Register</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-    <a href="forgotpass.php">I forgot my password</a><br>
-    <a href="register.php" class="text-center">Register/Sign up</a>
+    <a href="/login" class="text-center">I already have a membership</a>
   </div>
-  <!-- /.login-box-body -->
+  <!-- /.form-box -->
 </div>
-<!-- /.login-box -->
-<div id="message" class="col-md-12"></div>
+<!-- /.register-box -->
 <!-- jQuery 2.2.3 -->
 <script src="node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
+<!-- Bootstrap 3.3.7 -->
 <script src="node_modules/admin-lte/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="node_modules/admin-lte/plugins/iCheck/icheck.min.js"></script>
@@ -84,5 +101,6 @@ include 'includes/login.php';
     });
   });
 </script>
+<script src="/js/signup.js"></script>
 </body>
 </html>

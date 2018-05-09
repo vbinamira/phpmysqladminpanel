@@ -96,7 +96,7 @@ class USER
     $_SESSION['loggedin'] = false;
   }
   /*===============
-   READ
+   READ FUNCTIONS
   ================*/
   //GET ALL USERS 
   public function getUsers() 
@@ -463,7 +463,7 @@ class USER
     }
   }
   /*===============
-    CREATE
+    CREATE FUNCTIONS
    ================*/
   //ADD ADDITIONAL INFO FOR USER
   public function createUserinfo ($id,$cname,$title,$desc) 
@@ -595,7 +595,7 @@ class USER
     }
   }
   /*===============
-    UPDATE
+    UPDATE FUNCTIONS
   ================*/
   // CHANGE CONTACT INFO IN MAILCHIMP
   public function updateContact($hash,$email,$fname,$lname,$prty)
@@ -671,7 +671,7 @@ class USER
     }
   }
   /*===============
-    DELETE
+    DELETE FUNCTIONS
    ================*/
   // DELETE USER
   public function deleteUser($id) 
